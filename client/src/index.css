@@ -1,0 +1,581 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-gold-muted: var(--gold-muted);
+}
+
+:root {
+  /* ── Tema Claro — Cinza Suave Insider ── */
+  --radius: 0.875rem;
+
+  /* Verde Insider com contraste adequado sobre fundo claro */
+  --primary: oklch(0.50 0.15 155);          /* verde escuro, contraste sobre cinza claro */
+  --primary-foreground: oklch(0.98 0 0);    /* branco */
+  --sidebar-primary: oklch(0.50 0.15 155);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+
+  /* Fundo cinza perceptível — não branco puro */
+  --background: oklch(0.92 0.007 250);      /* fundo mais escuro para cards saltarem */
+  --foreground: oklch(0.18 0.02 250);       /* texto escuro com bom contraste */
+
+  /* Cards quase brancos — "saltam" do fundo cinza */
+  --card: oklch(0.99 0.003 250);
+  --card-foreground: oklch(0.18 0.02 250);
+  --popover: oklch(0.99 0.003 250);
+  --popover-foreground: oklch(0.18 0.02 250);
+
+  /* Secundário e muted — entre o fundo (0.92) e o card (0.98) */
+  --secondary: oklch(0.95 0.006 250);
+  --secondary-foreground: oklch(0.28 0.02 250);
+  --muted: oklch(0.95 0.006 250);
+  --muted-foreground: oklch(0.48 0.02 250);
+  --accent: oklch(0.95 0.006 250);
+  --accent-foreground: oklch(0.18 0.02 250);
+
+  /* Bordas mais visíveis para separar camadas */
+  --border: oklch(0.89 0.008 250);
+  --input: oklch(0.89 0.008 250);
+  --ring: oklch(0.50 0.15 155);
+
+  /* Destrutivo */
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  /* Sidebar um tom mais escuro que o fundo */
+  --sidebar: oklch(0.95 0.005 250);
+  --sidebar-foreground: oklch(0.20 0.02 250);
+  --sidebar-accent: oklch(0.92 0.007 250);
+  --sidebar-accent-foreground: oklch(0.20 0.02 250);
+  --sidebar-border: oklch(0.88 0.01 250);
+  --sidebar-ring: oklch(0.50 0.15 155);
+
+  /* Charts */
+  --chart-1: oklch(0.50 0.15 155);
+  --chart-2: oklch(0.60 0.14 160);
+  --chart-3: oklch(0.70 0.12 165);
+  --chart-4: oklch(0.40 0.12 150);
+  --chart-5: oklch(0.35 0.10 145);
+
+  /* Gold */
+  --gold: oklch(0.65 0.14 75);             /* dourado com contraste no claro */
+  --gold-foreground: oklch(0.15 0 0);
+  --gold-muted: oklch(0.55 0.10 80);
+}
+
+.dark {
+  --primary: oklch(0.85 0.2 150); /* Verde Neon Insider #00FF85 */
+  --primary-foreground: oklch(0.1 0 0); /* Preto */
+  --sidebar-primary: oklch(0.85 0.2 150);
+  --sidebar-primary-foreground: oklch(0.1 0 0);
+  /* ── Fundo Verde Escuro Oficial Insider #001f27 ── */
+  --background: oklch(0.15 0.025 200);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.17 0.025 200);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.17 0.025 200);
+  --popover-foreground: oklch(0.95 0 0);
+  --secondary: oklch(0.22 0.02 200);
+  --secondary-foreground: oklch(0.9 0 0);
+  --muted: oklch(0.22 0.02 200);
+  --muted-foreground: oklch(0.6 0.005 200);
+  --accent: oklch(0.22 0.02 200);
+  --accent-foreground: oklch(0.85 0.2 150); /* Verde Neon */
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.24 0.02 200);
+  --input: oklch(0.22 0.02 200);
+  --ring: oklch(0.85 0.2 150); /* Verde Neon */
+  --chart-1: oklch(0.85 0.2 150);
+  --chart-2: oklch(0.75 0.18 160);
+  --chart-3: oklch(0.65 0.15 170);
+  --chart-4: oklch(0.55 0.12 180);
+  --chart-5: oklch(0.45 0.1 190);
+  /* ── Sidebar um tom mais escuro ── */
+  --sidebar: oklch(0.13 0.025 200);
+  --sidebar-foreground: oklch(0.9 0 0);
+  --sidebar-accent: oklch(0.18 0.025 200);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.2 0.02 200);
+  --sidebar-ring: oklch(0.85 0.2 150);
+  /* ── Gold Premium Real #D4AF37 ── */
+  --gold: oklch(0.78 0.14 85);
+  --gold-foreground: oklch(0.15 0 0);
+  --gold-muted: oklch(0.6 0.1 85);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* ── Gold Premium Utilities ── */
+  .gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #F5D060 40%, #D4AF37 60%, #B8860B 100%);
+  }
+  
+  .gold-gradient-text {
+    background: linear-gradient(135deg, #D4AF37 0%, #F5D060 40%, #D4AF37 60%, #B8860B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gold-border {
+    border-color: rgba(212, 175, 55, 0.35);
+  }
+
+  .gold-glow {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15), 0 0 40px rgba(212, 175, 55, 0.05);
+  }
+
+  .gold-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gold-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 200%; }
+  }
+
+  /* Badge Novidade — shimmer dourado elegante */
+  @keyframes gold-badge-shimmer {
+    0%   { left: -120%; }
+    100% { left: 220%; }
+  }
+
+  /* Glow dourado no ring do toggle */
+  @keyframes gold-ring-breathe {
+    0%, 100% { box-shadow: 0 0 6px 1px rgba(212,175,55,0.35); }
+    50%       { box-shadow: 0 0 12px 3px rgba(212,175,55,0.55); }
+  }
+
+  .novidade-badge {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #B8860B 0%, #D4AF37 35%, #F5D060 55%, #D4AF37 75%, #B8860B 100%);
+    color: oklch(0.15 0 0);
+    animation: gold-ring-breathe 2s ease-in-out infinite;
+    /* Reutiliza o shimmer via pseudo-elemento */
+  }
+
+  .novidade-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    animation: gold-badge-shimmer 2.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .novidade-ring {
+    animation: gold-ring-breathe 2s ease-in-out infinite;
+  }
+
+  /* ── Premium Card Hover ── */
+  .card-premium {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 255, 133, 0.08);
+  }
+
+  /* ── Stat Card — large number + label ── */
+  .stat-card {
+    @apply bg-card/60 border border-border/40 rounded-2xl p-5 transition-all duration-250 hover:border-primary/20;
+  }
+
+  .stat-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 255, 133, 0.06);
+    transform: translateY(-1px);
+  }
+
+  /* ── Spacing Standards — change here to update all screens ── */
+  /* app-card: padding interno padrão dos cards */
+  .app-card {
+    @apply p-4 lg:p-5;
+  }
+  /* app-card-sm: padding menor para cards compactos (stat cards, mini-cards) */
+  .app-card-sm {
+    @apply p-3 lg:p-4;
+  }
+  /* app-grid: gap padrão entre cards numa grade */
+  .app-grid {
+    @apply gap-3 lg:gap-4;
+  }
+  /* app-section: espaço vertical entre seções/blocos */
+  .app-section {
+    @apply space-y-4 lg:space-y-5;
+  }
+
+  /* ── Sparkline container ── */
+  .sparkline-wrap {
+    @apply absolute bottom-0 right-0 opacity-40 pointer-events-none;
+  }
+
+  /* ── Primary action button glow ── */
+  .btn-primary-glow {
+    box-shadow: 0 0 18px rgba(0, 255, 133, 0.25);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .btn-primary-glow:hover {
+    box-shadow: 0 0 28px rgba(0, 255, 133, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* ── Nav item active pill ── */
+  .nav-item-active {
+    @apply relative;
+  }
+  .nav-item-active::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-primary rounded-r-full;
+  }
+}
+
+/* ── Animações de entrada (scroll reveal) ── */
+.animate-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-in.animate-in-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-in.delay-100 { transition-delay: 0.1s; }
+.animate-in.delay-200 { transition-delay: 0.2s; }
+.animate-in.delay-300 { transition-delay: 0.3s; }
+.animate-in.delay-400 { transition-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .gold-shimmer::after {
+    animation: none;
+  }
+  /* Badge Novidade: sem movimento, mas mantém o dourado estático */
+  .novidade-badge {
+    animation: none;
+  }
+  .novidade-badge::after {
+    animation: none;
+    display: none;
+  }
+  .novidade-ring {
+    animation: none;
+  }
+}
+
+/* ── Plan Badge Tokens ── */
+  :root {
+    --plan-pro-bg:     rgba(75,159,255,0.15);
+    --plan-pro-text:   #4B9FFF;
+    --plan-pro-border: rgba(75,159,255,0.35);
+
+    --plan-fast-bg:     rgba(22,199,132,0.15);
+    --plan-fast-text:   #16C784;
+    --plan-fast-border: rgba(22,199,132,0.35);
+
+    --plan-trial-bg:     rgba(240,185,11,0.15);
+    --plan-trial-text:   #F0B90B;
+    --plan-trial-border: rgba(240,185,11,0.35);
+
+    --plan-future-bg:     rgba(168,85,247,0.15);
+    --plan-future-text:   #A855F7;
+    --plan-future-border: rgba(168,85,247,0.35);
+
+    --plan-default-bg:   rgba(138,146,158,0.12);
+    --plan-default-text: #8A929E;
+    --plan-default-border: rgba(138,146,158,0.25);
+  }
+
+  .badge-plan {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+
+  .badge-plan-pro {
+    background: var(--plan-pro-bg);
+    color: var(--plan-pro-text);
+    border-color: var(--plan-pro-border);
+  }
+  .badge-plan-fast {
+    background: var(--plan-fast-bg);
+    color: var(--plan-fast-text);
+    border-color: var(--plan-fast-border);
+  }
+  .badge-plan-trial {
+    background: var(--plan-trial-bg);
+    color: var(--plan-trial-text);
+    border-color: var(--plan-trial-border);
+  }
+  .badge-plan-future {
+    background: var(--plan-future-bg);
+    color: var(--plan-future-text);
+    border-color: var(--plan-future-border);
+  }
+  .badge-plan-default {
+    background: var(--plan-default-bg);
+    color: var(--plan-default-text);
+    border-color: var(--plan-default-border);
+  }
+
+/* ── Scrollbar Premium ── */
+.dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: oklch(0.13 0.025 200);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(0.25 0.02 200);
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.35 0.02 200);
+}
+
+/* ── Light Mode Adaptations ──────────────────────────────────────────────── */
+/* Componentes que usam bg-white/[0.0x] e border-white/[0.0x] (padrão dark)  */
+/* No tema claro, essas classes ficam invisíveis — substituímos por black/[0.0x] */
+
+:root:not(.dark) {
+  /* Superfícies com opacidade branca → usar preto com opacidade equivalente */
+  --surface-subtle: rgba(0, 0, 0, 0.03);
+  --surface-light: rgba(0, 0, 0, 0.04);
+  --surface-medium: rgba(0, 0, 0, 0.06);
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-light: rgba(0, 0, 0, 0.10);
+  --text-primary: oklch(0.20 0.02 250);
+  --text-secondary: oklch(0.40 0.02 250);
+  --text-muted: oklch(0.55 0.02 250);
+}
+
+/* Corrigir text-white para text-foreground no modo claro */
+:root:not(.dark) .text-white {
+  color: oklch(0.20 0.02 250) !important;
+}
+
+/* Corrigir bg-white/[0.0x] → usar sombra escura sutil no modo claro */
+:root:not(.dark) [class*="bg-white/[0.0"] {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.02"] {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.015"] {
+  background-color: rgba(0, 0, 0, 0.015) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.025"] {
+  background-color: rgba(0, 0, 0, 0.025) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.03"] {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.04"] {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.05"] {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.06"] {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.07"] {
+  background-color: rgba(0, 0, 0, 0.07) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.08"] {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+:root:not(.dark) [class*="bg-white/[0.1"] {
+  background-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+/* Corrigir border-white/[0.0x] → usar borda escura sutil no modo claro */
+:root:not(.dark) [class*="border-white/[0.0"] {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+:root:not(.dark) [class*="border-white/[0.06"] {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+:root:not(.dark) [class*="border-white/[0.07"] {
+  border-color: rgba(0, 0, 0, 0.07) !important;
+}
+:root:not(.dark) [class*="border-white/[0.1"] {
+  border-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+/* Placeholder branco → cinza escuro no modo claro */
+:root:not(.dark) [class*="placeholder:text-white"] {
+  --tw-placeholder-color: oklch(0.55 0.02 250) !important;
+}
+
+/* Scrollbar para tema claro */
+:root:not(.dark) ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+:root:not(.dark) ::-webkit-scrollbar-track {
+  background: oklch(0.94 0.005 250);
+}
+:root:not(.dark) ::-webkit-scrollbar-thumb {
+  background: oklch(0.82 0.01 250);
+  border-radius: 3px;
+}
+:root:not(.dark) ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.72 0.01 250);
+}
+
+/* ──────────────────────────────────────────
+   Market Ticker — scroll horizontal infinito
+   ────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-25%); }
+}
+
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+
+/* ===================================================
+   reCAPTCHA badge — ocultar visualmente conforme
+   política do Google (atribuição feita no rodapé)
+   https://developers.google.com/recaptcha/docs/faq
+   =================================================== */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
