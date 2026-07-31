@@ -628,7 +628,7 @@ export default function ClientApp({ initialAccountId }: ClientAppProps = {}) {
 
           {/* Page Content */}
           <main className="flex-1 overflow-auto flex flex-col">
-            <div className="flex-1 px-6 py-6 lg:px-10 lg:py-8 w-full max-w-[1400px] mx-auto">
+            <div className="flex-1 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 w-full max-w-[1400px] mx-auto">
               <SectionContent sectionId={activeSection} />
             </div>
             {/* Footer */}

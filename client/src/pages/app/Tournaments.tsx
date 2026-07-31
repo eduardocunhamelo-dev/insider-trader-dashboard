@@ -77,7 +77,7 @@ export default function Tournaments() {
   }
 
   return (
-    <div className="app-section max-w-[1800px]">
+    <div className="app-section max-w-5xl">
       {/* Preview banner — make it clear that data is illustrative */}
       <div className="rounded-xl border border-[#D4AF37]/30 bg-[#D4AF37]/5 p-4 flex items-start gap-3">
         <Construction className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />

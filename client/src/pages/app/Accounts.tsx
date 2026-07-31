@@ -1020,7 +1020,7 @@ export default function Accounts() {
 
       {/* Filter + Sort bar */}
       {viewMode === "accounts" && allAccounts.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           {/* Platform filter */}
           <div className="flex items-center gap-1 rounded-lg border border-[#D4AF37]/20 bg-[#D4AF37]/5 p-1">
             {(["all", "mt5", "ba"] as PlatformFilterType[]).map((p) => (
@@ -1127,7 +1127,7 @@ export default function Accounts() {
                     "bg-muted"
                   }`} />
 
-                  <CardContent className="p-5 pt-6">
+                  <CardContent className="p-4 sm:p-5 pt-6">
                     {/* Top row: identity + metrics */}
                     <div className="flex flex-col lg:flex-row lg:items-start gap-5">
                       {/* Left: info */}
@@ -1223,12 +1223,12 @@ export default function Accounts() {
                     )}
 
                     {/* Action buttons */}
-                    <div className="space-y-2 mt-4 pt-3 border-t border-white/[0.04]">
-                      <div className="flex items-center gap-2">
+                    <div className="mt-4 pt-3 border-t border-white/[0.04]">
+                      <div className="flex flex-wrap items-center gap-2">
                         {/* Desempenho */}
                         <Button
                           size="sm"
-                          className={`flex-1 gap-1.5 text-xs h-9 font-semibold transition-all ${
+                          className={`gap-1.5 text-xs h-9 font-semibold transition-all sm:flex-1 ${
                             isExpanded
                               ? "bg-primary/15 text-primary border border-primary/30 shadow-none hover:bg-primary/25"
                               : "bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25"
@@ -1242,7 +1242,7 @@ export default function Accounts() {
                         {/* Detalhes */}
                         <Button
                           size="sm"
-                          className="flex-1 gap-1.5 text-xs h-9 font-semibold bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25"
+                          className="sm:flex-1 gap-1.5 text-xs h-9 font-semibold bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25"
                           onClick={(e) => { e.stopPropagation(); navigateToAccountDetails(account.id); }}
                         >
                           <BarChart3 className="w-3.5 h-3.5" />
@@ -1260,7 +1260,7 @@ export default function Accounts() {
                       </div>
                       {/* Live balance row */}
                       {account.mt5Login && (
-                        <div className="flex justify-end">
+                        <div className="flex justify-end pt-1">
                           <LiveBalanceButton
                             mt5Login={String(account.mt5Login)}
                             currentBalance={account.currentBalance}

@@ -173,7 +173,7 @@ export default function Payouts() {
   };
 
   return (
-    <div className="space-y-6 max-w-3xl">
+    <div className="space-y-6 max-w-5xl">
       <div>
         <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground/40 mb-1">Financeiro</p>
         <h1 className="text-2xl font-bold">Saques</h1>
@@ -258,6 +258,7 @@ export default function Payouts() {
           </div>
 
           {/* ── PIX Key Registration ── */}
+          {/* Layout: form + history side by side on desktop */}
           {!hasPixKey && (
             <Card className="bg-amber-500/5 border-amber-500/20">
               <CardHeader className="pb-3">
@@ -432,7 +433,10 @@ export default function Payouts() {
 
       {/* ── History ── */}
       <div className="rounded-2xl border border-white/[0.06] bg-card/10 p-5">
-        <h2 className="font-semibold text-lg mb-4">Histórico de Saques</h2>
+        <h2 className="font-semibold text-lg mb-4 flex items-center gap-2">
+          <Clock className="w-4 h-4 text-muted-foreground" />
+          Histórico de Saques
+        </h2>
         {payouts.length === 0 ? (
           <div className="text-center py-12 text-muted-foreground">
             <Wallet className="w-12 h-12 mx-auto mb-3 opacity-30" />

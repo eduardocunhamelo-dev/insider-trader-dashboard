@@ -811,12 +811,12 @@ export default function AccountDetails() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="max-w-[1800px] mx-auto">
+      <div className="max-w-[1400px] mx-auto">
 
       {/* ════════════════════════════════════════════════════════════════════
           HEADER
       ════════════════════════════════════════════════════════════════════ */}
-      <div className="px-6 pt-5 pb-4 border-b border-white/[0.06]">
+      <div className="px-5 lg:px-6 pt-5 pb-4 border-b border-white/[0.06]">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-3 min-w-0">
             <button
@@ -838,8 +838,8 @@ export default function AccountDetails() {
                   {statusLabels[statusKey] ?? "—"}
                 </Badge>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                {data.account.platform_type === 2 ? "Black Arrow" : "MetaTrader 5"}
+              <p className="text-xs text-muted-foreground/70 mt-1">
+                {data.account.platform_type === 2 ? "Black Arrow · Futuros" : "MetaTrader 5 · FX/Indices"}
                 {planDateLabel ? ` · ${planDateLabel}` : ""}
               </p>
             </div>
@@ -875,7 +875,7 @@ export default function AccountDetails() {
       {/* ════════════════════════════════════════════════════════════════════
           8 METRIC CARDS (4×2 grid — individual rounded cards)
       ════════════════════════════════════════════════════════════════════ */}
-      <div className="px-6 py-4 grid grid-cols-2 lg:grid-cols-4 app-grid">
+      <div className="px-5 lg:px-6 py-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 app-grid">
         {metrics.map((m, i) => (
           <div
             key={i}
@@ -912,9 +912,12 @@ export default function AccountDetails() {
       {/* ════════════════════════════════════════════════════════════════════
           PERFORMANCE CHART
       ════════════════════════════════════════════════════════════════════ */}
-      <div className="px-5 lg:px-6 py-5 lg:py-6 border-b border-white/[0.04]">
+      <div className="px-5 lg:px-6 py-4 lg:py-6 border-b border-white/[0.04]">
         <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
           <div className="flex items-center gap-3">
+            <div className="w-6 h-6 rounded-md bg-muted/20 flex items-center justify-center">
+              <TrendingUp className="w-3.5 h-3.5 text-primary" />
+            </div>
             <h2 className="text-sm font-semibold text-foreground/80">
               Gráfico de Desempenho
             </h2>
@@ -968,7 +971,7 @@ export default function AccountDetails() {
 
 
         {chartData.length <= 1 ? (
-          <div className="h-[420px] flex flex-col items-center justify-center gap-3 bg-card/10 rounded-xl border border-white/[0.06]">
+          <div className="h-[280px] sm:h-[350px] lg:h-[420px] flex flex-col items-center justify-center gap-3 bg-card/10 rounded-xl border border-white/[0.06]">
             <TrendingUp className="w-10 h-10 text-muted-foreground/20" />
             <p className="text-sm text-muted-foreground">
               Sem histórico de capital
@@ -978,7 +981,7 @@ export default function AccountDetails() {
             </p>
           </div>
         ) : (
-          <div className="h-[420px]">
+          <div className="h-[280px] sm:h-[350px] lg:h-[420px]">
             {/* SVG gradient defs for area fill */}
             <svg width="0" height="0" style={{ position: "absolute" }}>
               <defs>
@@ -1139,8 +1142,8 @@ export default function AccountDetails() {
       {/* ════════════════════════════════════════════════════════════════════
           TABS — pill/rounded container style (matches reference design)
       ════════════════════════════════════════════════════════════════════ */}
-      <div className="px-5 pt-6 pb-0 overflow-x-auto">
-        <div className="inline-flex items-center bg-card/30 border border-white/[0.08] rounded-full p-1.5 min-w-max">
+      <div className="px-5 lg:px-6 pt-6 pb-0 overflow-x-auto">
+        <div className="inline-flex items-center bg-card/40 border border-white/[0.08] rounded-full p-1 min-w-max shadow-sm">
           {(
             [
               {
@@ -1168,10 +1171,10 @@ export default function AccountDetails() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-5 py-2.5 text-sm font-medium transition-all rounded-full whitespace-nowrap ${
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all rounded-full whitespace-nowrap ${
                 activeTab === tab.id
-                  ? "bg-white/[0.12] text-foreground font-semibold shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-primary/20 text-primary font-semibold shadow-sm"
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/[0.05]"
               }`}
             >
               {tab.icon}
@@ -1184,15 +1187,15 @@ export default function AccountDetails() {
       {/* ════════════════════════════════════════════════════════════════════
           TAB CONTENT
       ════════════════════════════════════════════════════════════════════ */}
-      <div className="p-6 pb-10">
+      <div className="px-5 lg:px-6 py-6 pb-10">
 
         {/* ── Estatísticas do Trader ──────────────────────────────────────── */}
         {activeTab === "stats" && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-0 border border-white/[0.06] rounded-xl overflow-hidden">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-0 border border-white/[0.06] rounded-xl overflow-hidden">
             {statsGrid.map((stat, i) => (
               <div
                 key={i}
-                className="bg-card/10 border-r border-b border-white/[0.06] p-5 hover:bg-card/20 transition-colors last:border-r-0"
+                className="bg-card/10 border-r border-b border-white/[0.06] p-3.5 sm:p-4 lg:p-5 hover:bg-card/20 transition-colors last:border-r-0"
               >
                 <p className="text-xs text-muted-foreground/70 mb-2.5 leading-tight">
                   {stat.label}
@@ -1209,7 +1212,7 @@ export default function AccountDetails() {
         {activeTab === "rules" && (
           <div>
             <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
-              <table className="w-full text-sm">
+                  <table className="w-full text-xs sm:text-sm">
                 <thead>
                   <tr className="border-b border-white/[0.06]">
                     <th className="text-left px-5 py-3 text-xs text-muted-foreground/70 font-medium">Descrição</th>
@@ -1335,7 +1338,7 @@ export default function AccountDetails() {
               </div>
             ) : (
               <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
-                <table className="w-full text-xs">
+                <table className="w-full text-[11px] sm:text-xs">
                   <thead>
                     <tr className="border-b border-white/[0.06] bg-card/20">
                       {[
@@ -1426,17 +1429,7 @@ export default function AccountDetails() {
 
       </div>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          CALENDAR SECTION — seção separada abaixo das tabs
-      ════════════════════════════════════════════════════════════════════ */}
-      <div className="px-5 lg:px-6 pb-10">
-        <OperationsCalendar
-          operations={(data.operations ?? []).map((op) => ({
-            date: op.date_closed ?? op.date ?? "",
-            value: op.value ?? 0,
-          }))}
-        />
-      </div>
+      {/* ── Calendar moved to tab (calendar-tab) — no longer duplicated ── */}
 
       {/* ════════════════════════════════════════════════════════════════════
           CREDENTIALS MODAL

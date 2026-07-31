@@ -324,7 +324,7 @@ export default function Leaderboard() {
   const effectivePlanSize = selectedPlanSize ?? planSizes[0] ?? null;
 
   return (
-    <div className="app-section max-w-3xl">
+    <div className="app-section max-w-5xl">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>

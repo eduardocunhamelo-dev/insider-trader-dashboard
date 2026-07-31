@@ -15,6 +15,7 @@ import {
   Sparkles,
   Gem,
   Construction,
+  Target,
 } from "lucide-react";
 
 // ─── Tier Data ───────────────────────────────────────────────────────────────
@@ -151,7 +152,10 @@ export default function InnerCircle() {
       <Card className="bg-card/60 border-white/[0.06]">
         <CardContent className="app-card">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-semibold">Progresso Geral</p>
+            <p className="text-sm font-semibold flex items-center gap-2">
+              <Target className="w-4 h-4 text-primary" />
+              Progresso Geral
+            </p>
             <p className="text-sm font-mono font-bold text-primary">{totalPayouts} / 12 payouts</p>
           </div>
           <div className="relative">
@@ -190,7 +194,7 @@ export default function InnerCircle() {
       </Card>
 
       {/* Tier Cards */}
-      <div className="app-section">
+      <div className="space-y-4">
         {TIERS.map((tier) => {
           const Icon = tier.icon;
           const RewardIcon = tier.rewardIcon;

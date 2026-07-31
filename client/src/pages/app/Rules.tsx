@@ -78,7 +78,7 @@ export default function Rules() {
   });
 
   return (
-    <div className="app-section max-w-[1800px]">
+    <div className="app-section max-w-5xl">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground/40 mb-1">Avaliação</p>

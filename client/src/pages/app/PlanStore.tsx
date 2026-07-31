@@ -71,7 +71,7 @@ export default function PlanStore() {
   const currentPlan = profile?.activePlan;
 
   return (
-    <div className="app-section max-w-[1800px]">
+    <div className="app-section max-w-5xl">
       <div>
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <ShoppingBag className="w-6 h-6 text-primary" />
@@ -113,7 +113,7 @@ export default function PlanStore() {
       </Card>
 
       {/* Plans Grid */}
-      <div className="grid lg:grid-cols-2 app-grid">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 app-grid">
         {PLANS.map((plan) => (
           <Card
             key={plan.type}
@@ -130,8 +130,8 @@ export default function PlanStore() {
             )}
             <CardContent className="app-card space-y-5">
               <div className="flex items-center gap-3">
-                <div className={`w-12 h-12 rounded-xl bg-${plan.color}/10 flex items-center justify-center`}>
-                  <plan.icon className={`w-6 h-6 text-${plan.color}`} />
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${plan.type === "fast" ? "bg-primary/10" : "bg-[#D4AF37]/10"}`}>
+                  <plan.icon className={`w-6 h-6 ${plan.type === "fast" ? "text-primary" : "text-[#D4AF37]"}`} />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">{plan.label}</h3>
@@ -145,7 +145,7 @@ export default function PlanStore() {
               <div className="space-y-2">
                 {plan.features.map((f, i) => (
                   <div key={i} className="flex items-center gap-2">
-                    <CheckCircle2 className={`w-3.5 h-3.5 text-${plan.color} shrink-0`} />
+                    <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${plan.type === "fast" ? "text-primary" : "text-[#D4AF37]"}`} />
                     <span className="text-sm text-muted-foreground">{f}</span>
                   </div>
                 ))}

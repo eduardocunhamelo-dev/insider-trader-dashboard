@@ -1,4 +1,3 @@
-import { useTraderAuth } from "@/hooks/useTraderAuth";
 import PlatformDashboard from "./dashboard/PlatformDashboard";
 import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,6 +19,9 @@ import {
   ArrowDownRight,
   RefreshCw,
   ShieldAlert,
+  Users,
+  ShoppingBag,
+  ChevronRight,
 } from "lucide-react";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -69,18 +71,14 @@ function SkeletonEvaluation() {
 function DashboardSkeleton() {
   return (
     <div className="app-section max-w-none animate-in">
-      {/* Greeting skeleton */}
       <div>
         <div className="h-7 w-48 bg-muted/30 rounded animate-pulse mb-2" />
         <div className="h-4 w-72 bg-muted/20 rounded animate-pulse" />
       </div>
-      {/* Stats skeleton */}
       <div className="grid grid-cols-2 lg:grid-cols-4 app-grid">
         {[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
       </div>
-      {/* Evaluation skeleton */}
       <SkeletonEvaluation />
-      {/* Two column skeleton */}
       <div className="grid lg:grid-cols-3 app-grid">
         <div className="lg:col-span-2">
           <div className="h-64 rounded-xl bg-muted/10 border border-white/[0.06] animate-pulse" />
@@ -165,16 +163,16 @@ export default function Dashboard() {
     : 0;
 
   return (
-    <div className="space-y-4 max-w-none">
+    <div className="space-y-5">
 
       {/* ── Greeting ── */}
-      <div className="flex items-start justify-between gap-4 mb-1">
+      <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
-            Olá, {traderName.split(" ")[0]} 👋
+            Olá, {traderName.split(" ")[0]}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Aqui está o resumo da sua performance em tempo real.
+            Resumo da sua performance em tempo real
           </p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
@@ -236,8 +234,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-2 lg:grid-cols-4 app-grid">
         {[
           {
-            label: "Saldo Atual",
-            sublabel: "SALDO ATUAL",
+            label: "Saldo",
             value: hasMetaAccount
               ? formatUsd(metaAccounts.reduce((sum, a) => sum + (a.currentBalance ?? 0), 0))
               : `$${((trader?.capitalUsd ?? 10000) / 1000).toFixed(0)}k`,
@@ -254,11 +251,9 @@ export default function Dashboard() {
             const profitUsd = hasMetaAccount
               ? metaAccounts.reduce((sum, a) => sum + ((a.currentBalance ?? 0) - (a.initialBalance ?? 0)), 0)
               : (trader?.totalProfitCents ?? 0) / 100;
-            // Consider both the % and the absolute USD value — if either is negative, show red
             const isNegative = currentProfit < 0 || profitUsd < 0;
             return {
               label: "Lucro",
-              sublabel: "LUCRO",
               value: hasMetaAccount
                 ? formatUsd(profitUsd)
                 : formatUsdCents(trader?.totalProfitCents ?? 0),
@@ -272,7 +267,6 @@ export default function Dashboard() {
           })(),
           {
             label: "Drawdown",
-            sublabel: "DRAWDOWN",
             value: `${currentDrawdown.toFixed(2)}%`,
             sub: `Max: ${maxDrawdown}%`,
             icon: ShieldAlert,
@@ -282,8 +276,7 @@ export default function Dashboard() {
             trend: null as null | "up" | "down",
           },
           {
-            label: "Dias Operados",
-            sublabel: "DIAS OPERADOS",
+            label: "Dias",
             value: `${tradingDays}`,
             sub: `Min: ${minTradingDays} dias`,
             icon: Calendar,
@@ -298,10 +291,10 @@ export default function Dashboard() {
             <Card key={i} className="bg-card/60 border-white/[0.06] card-premium relative overflow-hidden group">
               {/* Subtle top accent */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-white/[0.06] to-transparent" />
-              <CardContent className="p-6">
+              <CardContent className="p-5 lg:p-6">
                 {/* Icon top-left + optional trend badge top-right */}
-                <div className="flex items-start justify-between mb-5">
-                  <div className={`w-11 h-11 rounded-xl ${stat.iconBg} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`w-10 h-10 rounded-xl ${stat.iconBg} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
                     <Icon className={`w-5 h-5 ${stat.iconColor}`} />
                   </div>
                   {stat.trend && (
@@ -316,12 +309,11 @@ export default function Dashboard() {
                   )}
                 </div>
                 {/* Value */}
-                <p className={`text-[1.65rem] font-bold font-mono leading-none ${stat.valueColor} mb-2`}>
+                <p className={`text-2xl font-bold font-mono leading-none ${stat.valueColor} mb-1.5`}>
                   {stat.value}
                 </p>
                 {/* Sub label */}
-                <p className="text-[11px] text-muted-foreground/60 leading-tight">{stat.sub}</p>
-                <p className="text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground/30 mt-1">{stat.sublabel}</p>
+                <p className="text-[11px] text-muted-foreground/60">{stat.sub}</p>
               </CardContent>
             </Card>
           );
@@ -346,7 +338,7 @@ export default function Dashboard() {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-5 relative z-10">
+        <CardContent className="space-y-4 relative z-10">
           <div className="relative">
             <Progress value={evaluationProgress} className="h-3" />
             {evaluationProgress > 0 && evaluationProgress < 100 && (
@@ -357,16 +349,16 @@ export default function Dashboard() {
             )}
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3.5 rounded-xl bg-muted/15 border border-white/[0.06] hover:border-primary/20 transition-colors">
+            <div className="p-3 rounded-xl bg-muted/15 border border-white/[0.06] hover:border-primary/20 transition-colors">
               <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">Meta de Lucro</p>
-              <p className="font-bold font-mono text-sm mt-1.5">
+              <p className="font-bold font-mono text-sm mt-1">
                 <span className="text-primary">{currentProfit.toFixed(2)}%</span>
                 <span className="text-muted-foreground"> / {profitTarget}%</span>
               </p>
             </div>
-            <div className="p-3.5 rounded-xl bg-muted/15 border border-white/[0.06] hover:border-primary/20 transition-colors">
+            <div className="p-3 rounded-xl bg-muted/15 border border-white/[0.06] hover:border-primary/20 transition-colors">
               <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">Drawdown</p>
-              <p className="font-bold font-mono text-sm mt-1.5">
+              <p className="font-bold font-mono text-sm mt-1">
                 <span className="text-orange-400">
                   {currentDrawdown.toFixed(2)}%
                 </span>
@@ -379,9 +371,9 @@ export default function Dashboard() {
                 />
               </div>
             </div>
-            <div className="p-3.5 rounded-xl bg-muted/15 border border-white/[0.06] hover:border-primary/20 transition-colors">
+            <div className="p-3 rounded-xl bg-muted/15 border border-white/[0.06] hover:border-primary/20 transition-colors">
               <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">Dias Operados</p>
-              <p className="font-bold font-mono text-sm mt-1.5">
+              <p className="font-bold font-mono text-sm mt-1">
                 <span className={tradingDays >= minTradingDays ? "text-emerald-400" : "text-blue-400"}>{tradingDays}</span>
                 <span className="text-muted-foreground"> / {minTradingDays} min</span>
               </p>
@@ -389,9 +381,9 @@ export default function Dashboard() {
                 <p className="text-[9px] text-emerald-400 mt-1 font-medium">Mínimo atingido</p>
               )}
             </div>
-            <div className="p-3.5 rounded-xl bg-muted/15 border border-white/[0.06] hover:border-primary/20 transition-colors">
+            <div className="p-3 rounded-xl bg-muted/15 border border-white/[0.06] hover:border-primary/20 transition-colors">
               <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">Prazo</p>
-              <p className="font-bold font-mono text-sm mt-1.5">
+              <p className="font-bold font-mono text-sm mt-1">
                 <span className={daysRemaining <= 7 ? "text-orange-400" : "text-foreground"}>{daysRemaining}</span>
                 <span className="text-muted-foreground"> dias</span>
               </p>
@@ -411,94 +403,93 @@ export default function Dashboard() {
           <PlatformDashboard accounts={metaAccounts} />
         </div>
 
-        {/* Right (1/3) — Quick Actions */}
+        {/* Right (1/3) — Quick Actions (consolidated) */}
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground/40 px-1">Ações Rápidas</p>
 
           {/* Minhas Contas */}
-          <div
+          <button
             onClick={() => navigateTo(hasMetaAccount ? "accounts" : "plans")}
-            className="flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-card/30 hover:bg-card/60 hover:border-primary/20 transition-all cursor-pointer group card-premium"
+            className="w-full flex items-center gap-4 p-4 rounded-xl border border-white/[0.06] bg-card/30 hover:bg-card/60 hover:border-primary/20 transition-all cursor-pointer group card-premium text-left"
           >
-            <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
-              <TrendingUp className="w-6 h-6 text-primary" />
+            <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <TrendingUp className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-sm leading-tight">Minhas Contas</p>
+              <p className="font-semibold text-sm leading-tight text-foreground">Minhas Contas</p>
               <p className="text-xs text-muted-foreground/70 mt-0.5">
                 {hasMetaAccount ? `${metaAccounts.length} conta(s) ativa(s)` : "Nenhuma conta ativa"}
               </p>
             </div>
-            <ChevronRightIcon />
-          </div>
-          <button
-            onClick={() => navigateTo(hasMetaAccount ? "accounts" : "plans")}
-            className="w-full text-xs font-semibold text-primary hover:text-primary/80 bg-primary/5 hover:bg-primary/10 border border-primary/20 rounded-xl py-2 transition-all"
-          >
-            {hasMetaAccount ? "Ver contas" : "Adquirir plano"}
+            <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
           </button>
 
           {/* Solicitar Saque */}
-          <div
+          <button
             onClick={() => trader?.status === "approved" && navigateTo("payouts")}
-            className={`flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-card/30 transition-all group card-premium ${
+            className={`w-full flex items-center gap-4 p-4 rounded-xl border border-white/[0.06] bg-card/30 transition-all group card-premium text-left ${
               trader?.status === "approved" ? "hover:bg-card/60 hover:border-[#D4AF37]/30 cursor-pointer" : "cursor-default opacity-70"
             }`}
           >
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 ${
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 ${
               trader?.status === "approved" ? "bg-[#D4AF37]/15" : "bg-muted/20"
             }`}>
               {trader?.status === "approved"
-                ? <DollarSign className="w-6 h-6 text-[#D4AF37]" />
-                : <Lock className="w-6 h-6 text-muted-foreground/50" />
+                ? <DollarSign className="w-5 h-5 text-[#D4AF37]" />
+                : <Lock className="w-5 h-5 text-muted-foreground/50" />
               }
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-sm leading-tight">Solicitar Saque</p>
+              <p className="font-semibold text-sm leading-tight text-foreground">Solicitar Saque</p>
               <p className="text-xs text-muted-foreground/70 mt-0.5">
                 {trader?.status === "approved" ? "Saldo disponível" : "Após aprovação"}
               </p>
             </div>
             {trader?.status !== "approved" && (
-              <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-muted/20 text-muted-foreground border border-white/[0.06]">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-muted/20 text-muted-foreground border border-white/[0.06] shrink-0">
                 Bloqueado
               </span>
             )}
-          </div>
+            {trader?.status === "approved" && (
+              <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-[#D4AF37] group-hover:translate-x-0.5 transition-all shrink-0" />
+            )}
+          </button>
 
           {/* Leaderboard */}
-          <div
+          <button
             onClick={() => navigateTo("leaderboard")}
-            className="flex items-center gap-4 p-5 rounded-2xl border border-white/[0.06] bg-card/30 hover:bg-card/60 hover:border-blue-500/30 transition-all cursor-pointer group card-premium"
+            className="w-full flex items-center gap-4 p-4 rounded-xl border border-white/[0.06] bg-card/30 hover:bg-card/60 hover:border-blue-500/30 transition-all cursor-pointer group card-premium text-left"
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
-              <Trophy className="w-6 h-6 text-blue-400" />
+            <div className="w-10 h-10 rounded-lg bg-blue-500/15 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <Trophy className="w-5 h-5 text-blue-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-sm leading-tight">Leaderboard</p>
+              <p className="font-semibold text-sm leading-tight text-foreground">Leaderboard</p>
               <p className="text-xs text-muted-foreground/70 mt-0.5">
                 {trader?.consecutiveCycles ?? 0} ciclos consecutivos
               </p>
             </div>
-            <ChevronRightIcon />
-          </div>
+            <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all shrink-0" />
+          </button>
+
+          {/* Loja de Planos */}
           <button
-            onClick={() => navigateTo("leaderboard")}
-            className="w-full text-xs font-semibold text-blue-400 hover:text-blue-300 bg-blue-500/5 hover:bg-blue-500/10 border border-blue-500/20 rounded-xl py-2 transition-all"
+            onClick={() => navigateTo("plan-store")}
+            className="w-full flex items-center gap-4 p-4 rounded-xl border border-white/[0.06] bg-card/30 hover:bg-card/60 hover:border-emerald-500/30 transition-all cursor-pointer group card-premium text-left"
           >
-            Ver ranking
+            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <ShoppingBag className="w-5 h-5 text-emerald-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-sm leading-tight text-foreground">Loja de Planos</p>
+              <p className="text-xs text-muted-foreground/70 mt-0.5">
+                Adquira uma nova conta
+              </p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition-all shrink-0" />
           </button>
         </div>
       </div>
     </div>
-  );
-}
-
-// Small helper icon to avoid repeating ChevronRight import inline
-function ChevronRightIcon() {
-  return (
-    <svg className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
   );
 }

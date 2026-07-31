@@ -75,7 +75,7 @@ export default function PaymentHistory() {
   ];
 
   return (
-    <div className="app-section max-w-[1800px]">
+    <div className="app-section max-w-5xl">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>

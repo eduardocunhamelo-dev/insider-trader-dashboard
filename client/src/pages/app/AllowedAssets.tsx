@@ -71,7 +71,7 @@ export default function AllowedAssets() {
   const activePlan = categoryPlans.find((p) => p.id === activePlanId);
 
   return (
-    <div className="max-w-[1800px] mx-auto app-section pb-8">
+    <div className="max-w-5xl mx-auto app-section pb-8">
 
       {/* ── Header ── */}
       <div className="flex items-center justify-between">
